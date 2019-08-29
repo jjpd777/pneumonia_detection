@@ -60,8 +60,8 @@ for (dType, paths, labels, outputPath) in datasets:
 	for (i, (path, label)) in enumerate(zip(paths, labels)):
 		# load the image and process it
 		image = cv2.imread(path)
-                if(!image):
-                        print(path)
+		if(!image):
+		print(path)
 		image = aap.preprocess(image)
 
 		# if we are building the training dataset, then compute the
