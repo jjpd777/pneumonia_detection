@@ -3,7 +3,7 @@ import shutil
 import os
 
 MAIN_PATH = "../datasets/chest_xray/"
-CLEAN_PATH = "./clean_data/"
+CLEAN_PATH = "../clean_data/"
 data_folders = ["train/","test/","val/"]
 labels = ["PNEUMONIA","NORMAL"]
 count = 0
