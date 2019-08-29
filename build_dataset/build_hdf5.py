@@ -12,8 +12,9 @@ import cv2
 import os
 
 trainPaths = list(paths.list_images(config.IMAGES_PATH))
-trainLabels = [p.split(os.path.sep)[-1].split(".")[0]
+trainLabels = [p.split(os.path.sep)[-1].split("-")[0]
 	for p in trainPaths]
+print(trainLabels)
 le = LabelEncoder()
 trainLabels = le.fit_transform(trainLabels)
 
@@ -59,6 +60,8 @@ for (dType, paths, labels, outputPath) in datasets:
 	for (i, (path, label)) in enumerate(zip(paths, labels)):
 		# load the image and process it
 		image = cv2.imread(path)
+                if(!image):
+                        print(path)
 		image = aap.preprocess(image)
 
 		# if we are building the training dataset, then compute the
