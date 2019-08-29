@@ -20,10 +20,7 @@ for directory in data_folders:
             os.rename(src,dst)
             count+=1
 imagePaths = list(paths.list_images(MAIN_PATH))
-print(len(imagePaths))
-im = 0 
 print("Writing data to ", CLEAN_PATH)
+print("Total images: ",len(imagePaths))
 for image in imagePaths:
 	shutil.move(image,CLEAN_PATH)
-	im+=1
-print(im)
