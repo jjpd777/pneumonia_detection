@@ -1,9 +1,9 @@
 # USAGE
-from config import config
+from utils import config
+from utils import AspectAwarePreprocessor
+from utils import HDF5DatasetWriter
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from pyimagesearch.preprocessing import AspectAwarePreprocessor
-from pyimagesearch.io import HDF5DatasetWriter
 from imutils import paths
 import numpy as np
 import progressbar

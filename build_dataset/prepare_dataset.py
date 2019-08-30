@@ -1,9 +1,17 @@
 from imutils import paths
+import argparse
 import shutil
 import os
 
-MAIN_PATH = "../datasets/chest_xray/"
-CLEAN_PATH = "../clean_data/"
+ap = argparse.ArgumentParser()
+app.add_argument("-d","--dataset", required=True,
+                 help ="path to input dataset")
+app.add_argument("-o","--output", required=True,
+                 help ="path to output folder")
+args = vars(ap.parse_args())
+
+MAIN_PATH = args["dataset"]
+CLEAN_PATH = args["output"] 
 data_folders = ["train/","test/","val/"]
 labels = ["PNEUMONIA","NORMAL"]
 count = 0
