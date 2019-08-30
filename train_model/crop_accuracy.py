@@ -16,7 +16,7 @@ import json
 
 # load the RGB means for the training set
 #means = json.loads(open(config.DATASET_MEAN).read())
-dim = 300
+dim = 400
 # initialize the image preprocessors
 sp = SimplePreprocessor(dim,dim)
 #mp = MeanPreprocessor(means["R"], means["G"], means["B"])

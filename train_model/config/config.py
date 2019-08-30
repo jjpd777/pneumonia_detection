@@ -1,6 +1,6 @@
 # define the paths to the images directory
 IMAGES_PATH = "../clean_data/train"
-IMAGE_SIZE = 300
+IMAGE_SIZE = 400
 # since we do not have validation data or access to the testing
 # labels we need to take a number of images from the training
 # data and use them instead

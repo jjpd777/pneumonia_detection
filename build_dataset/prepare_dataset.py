@@ -4,9 +4,9 @@ import shutil
 import os
 
 ap = argparse.ArgumentParser()
-app.add_argument("-d","--dataset", required=True,
+ap.add_argument("-d","--dataset", required=True,
                  help ="path to input dataset")
-app.add_argument("-o","--output", required=True,
+ap.add_argument("-o","--output", required=True,
                  help ="path to output folder")
 args = vars(ap.parse_args())
 

@@ -21,24 +21,27 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 	horizontal_flip=True, fill_mode="nearest")
 #
 # # load the RGB means for the training set
-# means = json.loads(open(config.DATASET_MEAN).read())
+means = json.loads(open(config.DATASET_MEAN).read())
 dim = config.IMAGE_SIZE
+bs = 32 
 # initialize the image preprocessors
 sp = SimplePreprocessor(dim,dim)
 pp = PatchPreprocessor(dim,dim)
-# mp = MeanPreprocessor(means["R"], means["G"], means["B"])
+mp = MeanPreprocessor(means["R"], means["G"], means["B"])
 iap = ImageToArrayPreprocessor()
 
 # initialize the training and validation dataset generators
-trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, 32, aug=aug,
-	preprocessors=[pp, iap], classes=2)
+trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, bs, aug=aug,
+	preprocessors=[pp,mp, iap], classes=2)
 print("checkpoint")
-valGen = HDF5DatasetGenerator(config.VAL_HDF5, 32,
-	preprocessors=[sp, iap], classes=2)
-
+valGen = HDF5DatasetGenerator(config.VAL_HDF5, bs,
+	preprocessors=[sp,mp, iap], classes=2)
+epochs = 50
+learning_rate = 0.0017
+decay = learning_rate/epochs
 # initialize the optimizer
 print("[INFO] compiling model...")
-opt = SGD(lr=1e-3)
+opt = SGD(lr=0.0018,decay=decay)
 model = AlexNet.build(width=dim, height=dim, depth=3,
 	classes=2, reg=0.00015)
 model.compile(loss="binary_crossentropy", optimizer=opt,
@@ -53,11 +56,11 @@ callbacks = [TrainingMonitor(path)]
 # train the network
 model.fit_generator(
 	trainGen.generator(),
-	steps_per_epoch=trainGen.numImages // 32,
+	steps_per_epoch=trainGen.numImages // bs,
 	validation_data=valGen.generator(),
-	validation_steps=valGen.numImages // 32,
-	epochs=50,
-	max_queue_size=15,
+	validation_steps=valGen.numImages // bs,
+	epochs=epochs,
+	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
 
 # save the model to file

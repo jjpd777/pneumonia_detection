@@ -29,7 +29,6 @@ class HDF5DatasetGenerator:
 		while epochs < passes:
 			# loop over the HDF5 dataset
 			for i in np.arange(0, self.numImages, self.batchSize):
-				print(i)
 				# extract the images and labels from the HDF dataset
 				images = self.db["images"][i: i + self.batchSize]
 				labels = self.db["labels"][i: i + self.batchSize]

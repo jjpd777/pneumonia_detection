@@ -1,7 +1,7 @@
 # define the paths to the images directory
 IMAGES_PATH = "../clean_data/train/"
 
-IMAGE_SIZE = 300
+IMAGE_SIZE = 400
 NUM_CLASSES = 2
 NUM_VAL_IMAGES = 300 * NUM_CLASSES
 NUM_TEST_IMAGES = 300 * NUM_CLASSES
