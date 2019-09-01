@@ -23,7 +23,7 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 # # load the RGB means for the training set
 means = json.loads(open(config.DATASET_MEAN).read())
 dim = config.RESIZE
-bs = 16 
+bs = 64 
 # initialize the image preprocessors
 sp = SimplePreprocessor(dim,dim)
 pp = PatchPreprocessor(dim,dim)
@@ -37,7 +37,7 @@ print("checkpoint")
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, bs,
 	preprocessors=[sp, iap], classes=2)
 epochs = 10
-learning_rate = 0.01
+learning_rate = 0.008
 decay = learning_rate/epochs
 # initialize the optimizer
 print("[INFO] compiling model...")
