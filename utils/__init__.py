@@ -4,7 +4,9 @@ from .imagetoarraypreprocessor import ImageToArrayPreprocessor
 from .meanpreprocessor import MeanPreprocessor 
 from .patchpreprocessor import PatchPreprocessor 
 from .simplepreprocessor import SimplePreprocessor 
-from .hdf5datasetgenerator import Hdf5DatasetGenerator
+from .croppreprocessor import CropPreprocessor 
+from .hdf5datasetgenerator import HDF5DatasetGenerator
+from .trainingmonitor import TrainingMonitor 
 from .alexnet import AlexNet
 from .ranked import rank5_accuracy
 from .config import *

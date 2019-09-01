@@ -2,13 +2,13 @@
 # python crop_accuracy.py
 
 # import the necessary packages
-from config import config as config
-from pyimagesearch.preprocessing import ImageToArrayPreprocessor
-from pyimagesearch.preprocessing import SimplePreprocessor
-from pyimagesearch.preprocessing import MeanPreprocessor
-from pyimagesearch.preprocessing import CropPreprocessor
-from pyimagesearch.io import HDF5DatasetGenerator
-from pyimagesearch.utils.ranked import rank5_accuracy
+from utils import config as config
+from utils import ImageToArrayPreprocessor
+from utils import SimplePreprocessor
+from utils import MeanPreprocessor
+from utils import CropPreprocessor
+from utils import HDF5DatasetGenerator
+from utils.ranked import rank5_accuracy
 from keras.models import load_model
 import numpy as np
 import progressbar
@@ -16,7 +16,7 @@ import json
 
 # load the RGB means for the training set
 #means = json.loads(open(config.DATASET_MEAN).read())
-dim = 400
+dim = 300
 # initialize the image preprocessors
 sp = SimplePreprocessor(dim,dim)
 #mp = MeanPreprocessor(means["R"], means["G"], means["B"])
