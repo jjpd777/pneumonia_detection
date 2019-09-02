@@ -15,13 +15,15 @@ import progressbar
 import json
 
 # load the RGB means for the training set
-#means = json.loads(open(config.DATASET_MEAN).read())
-dim = 300
+means = json.loads(open(config.DATASET_MEAN).read())
+
 # initialize the image preprocessors
-sp = SimplePreprocessor(dim,dim)
-#mp = MeanPreprocessor(means["R"], means["G"], means["B"])
-cp = CropPreprocessor(dim,dim)
+sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
+mp = MeanPreprocessor(means["R"], means["G"], means["B"])
 iap = ImageToArrayPreprocessor()
+
+cp = CropPreprocessor(config.RESIZE,config.RESIZE)
+
 
 # load the pretrained network
 print("[INFO] loading model...")
@@ -30,10 +32,10 @@ model = load_model(config.MODEL_PATH)
 # initialize the testing dataset generator, then make predictions on
 # the testing data
 print("[INFO] predicting on test data (no crops)...")
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, 32,
-	preprocessors=[sp,iap], classes=2)
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
+	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
 predictions = model.predict_generator(testGen.generator(),
-	steps=testGen.numImages // 32, max_queue_size=32)
+	steps=testGen.numImages // (config.BATCH_SIZE/2), max_queue_size=10)
 
 # compute the rank-1 and rank-5 accuracies
 (rank1, _) = rank5_accuracy(predictions, testGen.db["labels"])
@@ -42,14 +44,14 @@ testGen.close()
 
 # re-initialize the testing set generator, this time excluding the
 # `SimplePreprocessor`
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, 32,
-	preprocessors=[], classes=2)
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, (config.BATCH_SIZE/2),
+	preprocessors=[mp], classes=2)
 predictions = []
 
 # initialize the progress bar
 widgets = ["Evaluating: ", progressbar.Percentage(), " ",
 	progressbar.Bar(), " ", progressbar.ETA()]
-pbar = progressbar.ProgressBar(maxval=testGen.numImages // 32,
+pbar = progressbar.ProgressBar(maxval=testGen.numImages // (config.BATCH_SIZE/2),
 	widgets=widgets).start()
 
 # loop over a single pass of the test data

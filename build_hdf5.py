@@ -41,14 +41,14 @@ datasets = [
 
 # initialize the image pre-processor and the lists of RGB channel
 # averages
-aap = AspectAwarePreprocessor(config.IMAGE_SIZE, config.IMAGE_SIZE)
+aap = AspectAwarePreprocessor(config.BUILD_SIZE, config.BUILD_SIZE)
 (R, G, B) = ([], [], [])
 
 # loop over the dataset tuples
 for (dType, paths, labels, outputPath) in datasets:
 	# create HDF5 writer
 	print("[INFO] building {}...".format(outputPath))
-	writer = HDF5DatasetWriter((len(paths), config.IMAGE_SIZE, config.IMAGE_SIZE, 3), outputPath)
+	writer = HDF5DatasetWriter((len(paths), config.BUILD_SIZE, config.BUILD_SIZE, 3), outputPath)
 
 	# initialize the progress bar
 	widgets = ["Building Dataset: ", progressbar.Percentage(), " ",
