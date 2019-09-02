@@ -62,6 +62,7 @@ for (dType, paths, labels, outputPath) in datasets:
 		image = cv2.imread(path)
 		if(image is None):
 			print(path)
+			os.remove(path)
 			continue
 		image = aap.preprocess(image)
 
