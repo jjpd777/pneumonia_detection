@@ -49,7 +49,7 @@ print("[INFO] compiling model...")
 # 	classes=2, reg=0.00015)
 baseModel = Xception(weights="imagenet", include_top=False,
 	input_tensor=Input(shape=(224, 224, 3)))
-headModel = FCHeadNet.build(baseModel, len(classNames), 256)
+headModel = FCHeadNet.build(baseModel, config.NUM_CLASSES, 256)
 model = Model(inputs=baseModel.input, outputs=headModel)
 
 opt = Adam(lr= config.DECAY, decay =config.DECAY)

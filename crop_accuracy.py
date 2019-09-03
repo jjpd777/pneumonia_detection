@@ -35,7 +35,7 @@ print("[INFO] predicting on test data (no crops)...")
 testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
 predictions = model.predict_generator(testGen.generator(),
-	steps=testGen.numImages // (config.BATCH_SIZE/2), max_queue_size=10)
+	steps=testGen.numImages // (config.BATCH_SIZE//2), max_queue_size=10)
 
 # compute the rank-1 and rank-5 accuracies
 (rank1, _) = rank5_accuracy(predictions, testGen.db["labels"])
@@ -44,7 +44,7 @@ testGen.close()
 
 # re-initialize the testing set generator, this time excluding the
 # `SimplePreprocessor`
-testGen = HDF5DatasetGenerator(config.TEST_HDF5, (config.BATCH_SIZE/2),
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, (config.BATCH_SIZE//2),
 	preprocessors=[mp], classes=2)
 predictions = []
 
