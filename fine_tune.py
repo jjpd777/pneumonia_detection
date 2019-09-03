@@ -9,9 +9,10 @@ from utils import PatchPreprocessor
 from utils import MeanPreprocessor
 from utils import TrainingMonitor
 from utils import HDF5DatasetGenerator
-from utils import AlexNet
+from utils import FCHeadNet 
 from keras.applications import Xception
 from keras.preprocessing.image import ImageDataGenerator
+from keras.layers import Input 
 from keras.optimizers import Adam, SGD
 from keras.models import Model
 import json
@@ -26,7 +27,8 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 means = json.loads(open(config.DATASET_MEAN).read())
 
 with open('hyperparameter_tracker.txt','a') as f:
-	f.write(config.BATCH_SIZE," | ",config.LEARNING_RATE)
+        var = str(config.BATCH_SIZE) +" | "+ str(config.LEARNING_RATE)
+        f.write(var)
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
 pp = PatchPreprocessor(config.RESIZE,config.RESIZE)
