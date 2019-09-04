@@ -7,12 +7,13 @@ from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
 from utils import PatchPreprocessor
 from utils import MeanPreprocessor
+from utils import CropPreprocessor
 from utils import TrainingMonitor
 from utils import HDF5DatasetGenerator
-from utils import FCHeadNet 
+from utils import FCHeadNet
 from keras.applications import Xception
 from keras.preprocessing.image import ImageDataGenerator
-from keras.layers import Input 
+from keras.layers import Input
 from keras.optimizers import Adam, SGD
 from keras.models import Model
 import json
