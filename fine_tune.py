@@ -96,6 +96,8 @@ for layer in baseModel.layers[120:]:
 	layer.trainable = True
 
 opt = Adam(lr= config.DECAY, decay =config.DECAY)
+model.compile(loss="binary_crossentropy", optimizer=opt,
+	metrics=["accuracy"])
 model.fit_generator(
 	trainGen.generator(),
 	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
