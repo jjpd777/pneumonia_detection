@@ -1,0 +1,129 @@
+2019-09-04 22:58:37.707079: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-04 22:58:40.296246: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-04 22:58:40.296665: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: 0000:00:1e.0
+totalMemory: 11.17GiB freeMemory: 11.10GiB
+2019-09-04 22:58:40.296689: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-09-04 22:58:42.502363: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-04 22:58:42.502414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-09-04 22:58:42.502424: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-09-04 22:58:42.502701: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10758 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0, compute capability: 3.7)
+Using TensorFlow backend.
+checkpoint
+[INFO] predicting on test data (no crops)...
+[INFO] compiling model...
+Traceback (most recent call last):
+  File "fine_tune.py", line 65, in <module>
+    input_tensor=Input(shape=(224, 224, 3)))
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/applications/__init__.py", line 28, in wrapper
+    return base_fun(*args, **kwargs)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/applications/xception.py", line 11, in Xception
+    return xception.Xception(*args, **kwargs)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras_applications/xception.py", line 154, in Xception
+    residual = layers.BatchNormalization()(residual)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/engine/base_layer.py", line 457, in __call__
+    output = self.call(inputs, **kwargs)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/layers/normalization.py", line 206, in call
+    training=training)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 3123, in in_train_phase
+    x = switch(training, x, alt)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 3058, in switch
+    else_expression_fn)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 488, in new_func
+    return func(*args, **kwargs)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/ops/control_flow_ops.py", line 2097, in cond
+    orig_res_f, res_f = context_f.BuildCondBranch(false_fn)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/ops/control_flow_ops.py", line 1930, in BuildCondBranch
+    original_result = fn()
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/layers/normalization.py", line 176, in normalize_inference
+    epsilon=self.epsilon)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 1927, in batch_normalization
+    is_training=False
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/ops/nn_impl.py", line 909, in fused_batch_norm
+    name=name)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/ops/gen_nn_ops.py", line 3466, in _fused_batch_norm
+    is_training=is_training, name=name)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 461, in new_func
+    named_args = tf_inspect.getcallargs(func, *args, **kwargs)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/tensorflow/python/util/tf_inspect.py", line 219, in getcallargs
+    def getcallargs(func, *positional, **named):
+KeyboardInterrupt
+2019-09-04 22:58:51.129803: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-04 22:58:53.669981: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-04 22:58:53.670391: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: 0000:00:1e.0
+totalMemory: 11.17GiB freeMemory: 11.10GiB
+2019-09-04 22:58:53.670414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-09-04 22:58:54.008070: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-04 22:58:54.008125: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-09-04 22:58:54.008135: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-09-04 22:58:54.008405: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10758 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0, compute capability: 3.7)
+checkpoint
+[INFO] predicting on test data (no crops)...
+[INFO] compiling model...
+Epoch 1/10
+
+  1/145 [..............................] - ETA: 38:10 - loss: 0.6640 - acc: 0.5938
+  2/145 [..............................] - ETA: 23:16 - loss: 2.2701 - acc: 0.6250
+  3/145 [..............................] - ETA: 18:34 - loss: 3.1437 - acc: 0.6146
+  4/145 [..............................] - ETA: 14:18 - loss: 2.7163 - acc: 0.6250
+  5/145 [>.............................] - ETA: 11:39 - loss: 2.6216 - acc: 0.6000
+  6/145 [>.............................] - ETA: 10:58 - loss: 2.3680 - acc: 0.6042
+  7/145 [>.............................] - ETA: 10:39 - loss: 2.2589 - acc: 0.6205
+  8/145 [>.............................] - ETA: 10:24 - loss: 2.1412 - acc: 0.6406
+  9/145 [>.............................] - ETA: 10:11 - loss: 2.0241 - acc: 0.6562
+ 10/145 [=>............................] - ETA: 10:50 - loss: 1.9795 - acc: 0.6656
+ 11/145 [=>............................] - ETA: 9:51 - loss: 1.8942 - acc: 0.6648 
+ 12/145 [=>............................] - ETA: 9:45 - loss: 1.8427 - acc: 0.6536Using TensorFlow backend.
+Traceback (most recent call last):
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/h5py/_hl/files.py", line 190, in make_fid
+    fid = h5f.open(name, h5f.ACC_RDWR, fapl=fapl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 85, in h5py.h5f.open
+OSError: Unable to open file (unable to lock file, errno = 11, error message = 'Resource temporarily unavailable')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/h5py/_hl/files.py", line 193, in make_fid
+    fid = h5f.open(name, h5f.ACC_RDONLY, fapl=fapl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 85, in h5py.h5f.open
+OSError: Unable to open file (unable to lock file, errno = 11, error message = 'Resource temporarily unavailable')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "fine_tune.py", line 41, in <module>
+    preprocessors=[pp,mp, iap], classes=2)
+  File "/home/ubuntu/pneumonia_detection/utils/hdf5datasetgenerator.py", line 20, in __init__
+    self.db = h5py.File(dbPath)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/h5py/_hl/files.py", line 394, in __init__
+    swmr=swmr)
+  File "/home/ubuntu/.virtualenvs/dl4cv/lib/python3.6/site-packages/h5py/_hl/files.py", line 195, in make_fid
+    fid = h5f.create(name, h5f.ACC_EXCL, fapl=fapl, fcpl=fcpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 105, in h5py.h5f.create
+OSError: Unable to create file (unable to open file: name = './clean_data/hdf5/train.hdf5', errno = 17, error message = 'File exists', flags = 15, o_flags = c2)
+
+ 13/145 [=>............................] - ETA: 9:37 - loss: 1.8173 - acc: 0.6418
+ 14/145 [=>............................] - ETA: 9:30 - loss: 1.7351 - acc: 0.6496
+ 15/145 [==>...........................] - ETA: 9:22 - loss: 1.6630 - acc: 0.6604
+ 16/145 [==>...........................] - ETA: 9:16 - loss: 1.6505 - acc: 0.6582
+ 17/145 [==>...........................] - ETA: 9:09 - loss: 1.5892 - acc: 0.6691
+ 18/145 [==>...........................] - ETA: 9:03 - loss: 1.5339 - acc: 0.6736
+ 19/145 [==>...........................] - ETA: 8:57 - loss: 1.5036 - acc: 0.6711
+ 20/145 [===>..........................] - ETA: 8:51 - loss: 1.4664 - acc: 0.6734
+ 21/145 [===>..........................] - ETA: 8:45 - loss: 1.4384 - acc: 0.6771
+ 22/145 [===>..........................] - ETA: 9:00 - loss: 1.4161 - acc: 0.6733
+ 23/145 [===>..........................] - ETA: 8:35 - loss: 1.4038 - acc: 0.6685
+ 24/145 [===>..........................] - ETA: 8:29 - loss: 1.3709 - acc: 0.6680
+ 25/145 [====>.........................] - ETA: 8:24 - loss: 1.3482 - acc: 0.6663
+ 26/145 [====>.........................] - ETA: 8:19 - loss: 1.3237 - acc: 0.6647

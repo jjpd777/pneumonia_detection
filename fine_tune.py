@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import matplotlib
 matplotlib.use("Agg")
 
@@ -84,13 +85,18 @@ model.fit_generator(
 	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
 	validation_data=valGen.generator(),
 	validation_steps=valGen.numImages // config.BATCH_SIZE,
-	epochs=config.EPOCHS,
+	epochs=10,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
 ###########
 predictions = model.predict_generator(testGen.generator(),
 	steps=testGen.numImages // (config.BATCH_SIZE/2), max_queue_size=10)
+(rank1, _) = rank5_accuracy(predictions, testGen.db["labels"])
+print("[INFO] rank-1: {:.2f}%".format(rank1 * 100))
+testGen.close()
 ###########
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
+	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
 
 for layer in baseModel.layers[120:]:
 	layer.trainable = True
