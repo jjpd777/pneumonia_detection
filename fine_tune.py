@@ -40,6 +40,19 @@ print("checkpoint")
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp, mp, iap], classes=2)
 
+########
+cp = CropPreprocessor(config.RESIZE,config.RESIZE)
+
+
+# load the pretrained network
+
+# initialize the testing dataset generator, then make predictions on
+# the testing data
+print("[INFO] predicting on test data (no crops)...")
+testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
+	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
+
+########
 # initialize the optimizer
 print("[INFO] compiling model...")
 #opt = SGD(lr=0.0018,decay=decay)
@@ -51,6 +64,9 @@ headModel = FCHeadNet.build(baseModel, len(classNames), 256)
 model = Model(inputs=baseModel.input, outputs=headModel)
 
 opt = Adam(lr= config.DECAY, decay =config.DECAY)
+
+for layer in baseModel.layers:
+	layer.trainable = False
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
@@ -68,7 +84,23 @@ model.fit_generator(
 	epochs=config.EPOCHS,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
+###########
+predictions = model.predict_generator(testGen.generator(),
+	steps=testGen.numImages // (config.BATCH_SIZE/2), max_queue_size=10)
+###########
 
+for layer in baseModel.layers[120:]:
+	layer.trainable = True
+
+opt = Adam(lr= config.DECAY, decay =config.DECAY)
+model.fit_generator(
+	trainGen.generator(),
+	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
+	validation_data=valGen.generator(),
+	validation_steps=valGen.numImages // config.BATCH_SIZE,
+	epochs=config.EPOCHS,
+	max_queue_size=10,
+	callbacks=callbacks, verbose=1)
 # save the model to file
 print("[INFO] serializing model...")
 model.save(config.MODEL_PATH, overwrite=True)
