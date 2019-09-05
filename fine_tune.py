@@ -29,7 +29,7 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 means = json.loads(open(config.DATASET_MEAN).read())
 
 with open('hyperparameter_tracker.txt','a') as f:
-        var = str(config.BATCH_SIZE) +" | "+ str(config.LEARNING_RATE)
+        var = str(config.BATCH_SIZE) +" | "+ str(config.LEARNING_RATE + "\t")
         f.write(var)
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
