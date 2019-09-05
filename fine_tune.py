@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import matplotlib
 matplotlib.use("Agg")
-
+from utils.ranked import rank5_accuracy
 # import the necessary packages
 from utils import config as config
 from utils import ImageToArrayPreprocessor
@@ -85,7 +85,7 @@ model.fit_generator(
 	steps_per_epoch=trainGen.numImages // config.BATCH_SIZE,
 	validation_data=valGen.generator(),
 	validation_steps=valGen.numImages // config.BATCH_SIZE,
-	epochs=10,
+	epochs=5,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
 ###########
@@ -94,6 +94,8 @@ predictions = model.predict_generator(testGen.generator(),
 (rank1, _) = rank5_accuracy(predictions, testGen.db["labels"])
 print("[INFO] rank-1: {:.2f}%".format(rank1 * 100))
 testGen.close()
+print("[INFO] serializing model...")
+model.save("./intermediary.model", overwrite=True)
 ###########
 testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
