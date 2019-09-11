@@ -24,6 +24,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import SGD
 from keras.datasets import cifar10
 from keras.models import load_model
+from keras.callbacks import LearningRateScheduler
 import keras.backend as K
 import numpy as np
 import argparse
@@ -34,6 +35,12 @@ store_params()
 # set a high recursion limit so Theano doesn't complain
 sys.setrecursionlimit(5000)
 
+def poly_decay(epoch):
+	max_epochs = config.EPOCHS
+	baseLR = config.LEARNING_RATE
+	power = config.POWER
+	alpha = baseLR * (1- (epoch / float(max_epochs)))** power
+	return alpha
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 # ap.add_argument("-c", "--checkpoints", required=True,
@@ -64,7 +71,7 @@ if args["model"] is None:
 	print("[INFO] compiling model...")
 	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
 	model = ResNet.build(config.RESIZE, config.RESIZE, 3, 2, (3,4,6),
-		(64,128,256,512), reg=0.0005)
+		(64,128,256,512), reg=config.NETWORK_REG)
 	model.compile(loss="binary_crossentropy", optimizer=opt,
 		metrics=["accuracy"])
 
@@ -82,11 +89,12 @@ else:
 
 # construct the set of callbacks
 callbacks = [
-	EpochCheckpoint(config.CHECKPOINTS, every=5,
+	EpochCheckpoint(config.CHECKPOINTS, every=10,
 		startAt=args["start_epoch"]),
 	TrainingMonitor(config.EXPERIMENT_NAME+"resnet56_pneumonia.png",
 		jsonPath=config.EXPERIMENT_NAME+"resnet56_pneumonia.json",
-		startAt=args["start_epoch"])]
+		startAt=args["start_epoch"]),
+		LearningRateScheduler(poly_decay)]
 
 # train the network
 print("[INFO] training network...")
