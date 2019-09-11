@@ -31,7 +31,6 @@ print(len(split))
 split = train_test_split(trainPaths, trainLabels,
 	test_size=config.NUM_VAL_IMAGES, stratify=trainLabels,
 	random_state=42)
-print(len(split))
 (trainPaths, valPaths, trainLabels, valLabels) = split
 
 datasets = [
