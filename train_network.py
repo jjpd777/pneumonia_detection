@@ -23,8 +23,6 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 # # load the RGB means for the training set
 means = json.loads(open(config.DATASET_MEAN).read())
 
-with open('hyperparameter_tracker.txt','a') as f:
-	f.write(config.BATCH_SIZE," | ",config.LEARNING_RATE)
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
 pp = PatchPreprocessor(config.RESIZE,config.RESIZE)

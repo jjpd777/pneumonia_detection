@@ -10,7 +10,9 @@ class FCHeadNet:
 		# the base, then add a FC layer
 		headModel = baseModel.output
 		headModel = Flatten(name="flatten")(headModel)
-		headModel = Dense(D, activation="relu")(headModel)
+		headModel = Dense(128, activation="relu")(headModel)
+		headModel = Dropout(0.5)(headModel)
+		headModel = Dense(64, activation="relu")(headModel)
 		headModel = Dropout(0.5)(headModel)
 
 		# add a softmax layer
