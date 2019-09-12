@@ -14,26 +14,33 @@ from keras.models import load_model
 import numpy as np
 import progressbar
 import json
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-m","--model")
+args = vars(ap.parse_args())
+TEST = args["model"]
 
 test_bs = config.BATCH_SIZE//2
 # load the pretrained network
 print("[INFO] loading model...")
-model = load_model(config.MODEL_TEST_PATH)
+model = load_model(TEST)
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
 
+print("[INFO] loading model...")
 # initialize the testing dataset generator, then make predictions on
 # the testing data
-print("[INFO] predicting on test data (no crops)...")
+print("[INFO] predicting on test data...")
 testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
 	preprocessors=[sp], classes=config.NUM_CLASSES)
 predictions = model.predict_generator(testGen.generator(),
-	steps=testGen.numImages // test_bs, max_queue_size=10)
+	steps=testGen.numImages //config.BATCH_SIZE , max_queue_size=10)
 
 # compute the rank-1 and rank-5 accuracies
 (rank1, _) = rank5_accuracy(predictions, testGen.db["labels"])
 print("[INFO] rank-1: {:.2f}%".format(rank1 * 100))
 testGen.close()
-
+print("NO issues")
 ## re-initialize the testing set generator, this time excluding the
 ## `SimplePreprocessor`
 #testGen = HDF5DatasetGenerator(config.TEST_HDF5, test_bs,
