@@ -62,7 +62,7 @@ testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,aug=valaug,
 # the network (ResNet-56) and compile the model
 if args["model"] is None:
 	print("[INFO] compiling model...")
-	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY)
+	opt = SGD(lr=config.LEARNING_RATE,decay=config.DECAY,nesterov= config.MOMENTUM)
 	model = ResNet.build(config.RESIZE, config.RESIZE, 3, 2, (3,4,6),
 		(64,128,256,512), reg=config.NETWORK_REG)
 	model.compile(loss="binary_crossentropy", optimizer=opt,
