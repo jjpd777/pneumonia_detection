@@ -3,10 +3,7 @@
 
 # import the necessary packages
 from utils import config as config
-from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
-from utils import MeanPreprocessor
-from utils import CropPreprocessor
 from utils import HDF5DatasetGenerator
 from utils.ranked import rank5_accuracy
 from sklearn.metrics import classification_report

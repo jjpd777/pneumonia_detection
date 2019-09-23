@@ -9,31 +9,24 @@ matplotlib.use("Agg")
 
 # import the necessary packages
 from sklearn.preprocessing import LabelBinarizer
-from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
-from utils import PatchPreprocessor
-from utils import MeanPreprocessor
-from utils import CropPreprocessor
 from utils import HDF5DatasetGenerator
-from utils import p_config as config
-from utils.p_config import store_params
+from utils import config as config
+from utils.config import store_params
 from utils import ResNet
 from utils import EpochCheckpoint
 from utils import TrainingMonitor
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import SGD
-from keras.datasets import cifar10
 from keras.models import load_model
 from keras.callbacks import LearningRateScheduler
 import keras.backend as K
 import numpy as np
 import argparse
-import sys
 import json
 
 store_params()
-# set a high recursion limit so Theano doesn't complain
-sys.setrecursionlimit(5000)
+
 
 def poly_decay(epoch):
 	max_epochs = config.EPOCHS
@@ -42,7 +35,7 @@ def poly_decay(epoch):
 	alpha = baseLR * (1- (epoch / float(max_epochs)))** power
 	return alpha
 # construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
+# ap = argparse.ArgumentParser()
 # ap.add_argument("-c", "--checkpoints", required=True,
 # 	help="path to output checkpoint directory")
 ap.add_argument("-m", "--model", type=str,
