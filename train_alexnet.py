@@ -1,7 +1,5 @@
 import matplotlib
 matplotlib.use("Agg")
-
-# import the necessary packages
 from utils import config as config
 from utils import ImageToArrayPreprocessor
 from utils import SimplePreprocessor
@@ -19,37 +17,31 @@ import os
 aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,
 	width_shift_range=0.2, height_shift_range=0.2, shear_range=0.15,
 	horizontal_flip=True, fill_mode="nearest")
-#
-# # load the RGB means for the training set
-means = json.loads(open(config.DATASET_MEAN).read())
 
 # initialize the image preprocessors
 sp = SimplePreprocessor(config.RESIZE,config.RESIZE)
-pp = PatchPreprocessor(config.RESIZE,config.RESIZE)
-mp = MeanPreprocessor(means["R"], means["G"], means["B"])
-iap = ImageToArrayPreprocessor()
 
 # initialize the training and validation dataset generators
 trainGen = HDF5DatasetGenerator(config.TRAIN_HDF5, config.BATCH_SIZE, aug=aug,
-	preprocessors=[pp,mp, iap], classes=2)
-print("checkpoint")
+	preprocessors=[sp], classes=config.NUM_CLASSES)
 valGen = HDF5DatasetGenerator(config.VAL_HDF5, config.BATCH_SIZE,
-	preprocessors=[sp, mp, iap], classes=2)
+	preprocessors=[sp], classes=config.NUM_CLASSES)
 
 # initialize the optimizer
 print("[INFO] compiling model...")
-#opt = SGD(lr=0.0018,decay=decay)
 opt = Adam(lr= config.DECAY, decay =config.DECAY)
 model = AlexNet.build(width=config.RESIZE, height=config.RESIZE, depth=3,
-	classes=2, reg=0.00015)
-model.compile(loss="binary_crossentropy", optimizer=opt,
-	metrics=["accuracy"])
+	classes=config.NUM_CLASSES, reg=config.NETWORK_REG)
+model.compile(loss="binary_crossentropy", optimizer=opt,metrics=["accuracy"])
 
 # construct the set of callbacks
-path = os.path.sep.join([config.OUTPUT_PATH, "{}.png".format(
-	os.getpid())])
-callbacks = [TrainingMonitor(path)]
-
+callbacks = [
+	EpochCheckpoint(config.CHECKPOINTS, every=10,
+		startAt=args["start_epoch"]),
+	TrainingMonitor(config.MONITOR_PATH_PNG,
+		jsonPath=config.MONITOR_PATH_JSON,
+		startAt=args["start_epoch"]),
+		LearningRateScheduler(poly_decay)]
 # train the network
 model.fit_generator(
 	trainGen.generator(),
@@ -59,10 +51,6 @@ model.fit_generator(
 	epochs=config.EPOCHS,
 	max_queue_size=10,
 	callbacks=callbacks, verbose=1)
-
-# save the model to file
-print("[INFO] serializing model...")
-model.save(config.MODEL_PATH, overwrite=True)
 
 # close the HDF5 datasets
 trainGen.close()
