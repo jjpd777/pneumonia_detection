@@ -9,7 +9,9 @@ For this project I decided to build a deep learning solution for the [Chest X-Ra
 
 In order to speed up the training and development process, I used [this tutorial](https://www.pyimagesearch.com/2017/09/20/pre-configured-amazon-aws-deep-learning-ami-with-python/) from PyImageSearch on setting up an Amazon Machine Image (AMI) for deep learning. I used an p2.xlarge, 61 GiB Memory EC2 instance, with access to a Nvidia K80 GPU.
 I downloaded the dataset directly to my AMI via the Kaggle API, and added an additional 100GB of EBS volume to work properly with the data. 
-
+ ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-1/resnet56_pneumonia.png)
+ ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-2/resnet56_pneumonia.png)
+ ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-3/resnet56_pneumonia.png)
 
 ## Data Pipeline:
 _Make sure you install all the requirements from the requirements.txt file_.
