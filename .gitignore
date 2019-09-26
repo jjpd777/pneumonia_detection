@@ -6,6 +6,7 @@ __pycache__/
 *.hdf5
 output/
 clean_data/
+data/
 # C extensions
 *.so
 

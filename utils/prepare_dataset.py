@@ -4,14 +4,14 @@ import shutil
 import os
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-d","--dataset", required=True,
-                 help ="path to input dataset")
-ap.add_argument("-o","--output", required=True,
-                 help ="path to output folder")
+#ap.add_argument("-d","--dataset", required=True,
+#                 help ="path to input dataset")
+#ap.add_argument("-o","--output", required=True,
+#                 help ="path to output folder")
 args = vars(ap.parse_args())
 
-MAIN_PATH = args["dataset"]
-CLEAN_PATH = args["output"] 
+MAIN_PATH = "../data/chest_xray/" 
+CLEAN_PATH = "../clean_data/train" 
 data_folders = ["train/","test/","val/"]
 labels = ["PNEUMONIA","NORMAL"]
 count = 0
