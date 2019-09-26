@@ -42,7 +42,6 @@ datasets = [
 # initialize the image pre-processor and the lists of RGB channel
 # averages
 aap = AspectAwarePreprocessor(config.IMAGE_SIZE, config.IMAGE_SIZE)
-(R, G, B) = ([], [], [])
 
 # loop over the dataset tuples
 for (dType, paths, labels, outputPath) in datasets:
@@ -65,15 +64,6 @@ for (dType, paths, labels, outputPath) in datasets:
 			continue
 		image = aap.preprocess(image)
 
-		# if we are building the training dataset, then compute the
-		# mean of each channel in the image, then update the
-		# respective lists
-		if dType == "train":
-			(b, g, r) = cv2.mean(image)[:3]
-			R.append(r)
-			G.append(g)
-			B.append(b)
-
 		# add the image and label # to the HDF5 dataset
 		writer.add([image], [label])
 		pbar.update(i)
@@ -85,7 +75,3 @@ for (dType, paths, labels, outputPath) in datasets:
 # construct a dictionary of averages, then serialize the means to a
 # JSON file
 print("[INFO] serializing means...")
-D = {"R": np.mean(R), "G": np.mean(G), "B": np.mean(B)}
-f = open(config.DATASET_MEAN, "w")
-f.write(json.dumps(D))
-f.close()
