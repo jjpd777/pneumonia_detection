@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.model
 *.hdf5
-output/
 clean_data/
 data/
 # C extensions
