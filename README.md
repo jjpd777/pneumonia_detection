@@ -12,7 +12,10 @@ I downloaded the dataset directly to my AMI via the Kaggle API, and added an add
  ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-1/resnet56_pneumonia.png)
  ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-2/resnet56_pneumonia.png)
  ![](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-3/resnet56_pneumonia.png)
+- - 
 
+![The first results where these](https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-alexnet-1/monitor.png)
+![The second results where these] (https://github.com/jjpd777/pneumonia_detection/blob/master/output/experiment-alexnet-2/monitor.png)
 ## Data Pipeline:
 _Make sure you install all the requirements from the requirements.txt file_.
 ### 1) Building an _HDF5_ file to store images:
