@@ -72,6 +72,3 @@ for (dType, paths, labels, outputPath) in datasets:
 	pbar.finish()
 	writer.close()
 
-# construct a dictionary of averages, then serialize the means to a
-# JSON file
-print("[INFO] serializing means...")

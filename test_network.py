@@ -13,7 +13,6 @@ import progressbar
 import json
 import argparse
 
-store_params()
 ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--model", type=str,
 	help="path to *specific* model checkpoint to load")
@@ -32,7 +31,7 @@ model = load_model(args["model"])
 # the testing data
 print("[INFO] predicting on test data (no crops)...")
 testGen = HDF5DatasetGenerator(config.TEST_HDF5, config.BATCH_SIZE,
-	preprocessors=[sp,mp,iap], classes=config.NUM_CLASSES)
+	preprocessors=[sp], classes=config.NUM_CLASSES)
 predictions = model.predict_generator(testGen.generator(),
 	steps=testGen.numImages //config.BATCH_SIZE , max_queue_size=10)
 # compute the rank-1 and rank-5 accuracies
